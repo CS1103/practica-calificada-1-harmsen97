@@ -1,5 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
+#include <stdio.h>
+#include "Polynomial.h"
 #include <iostream>
 
 
@@ -7,62 +9,40 @@
 #include <iostream>
 using namespace std;
 
-// A utility function to return maximum of two integers
-int max(int m, int n) {  return (m > n)? m: n; }
+int main (int argc, char *argv[]) {
+    int coefficient, exponent, i, n;
+    FILE *fp1, *fp2;
+    fp1 = fopen(argv[1], "r");
+    fp2 = fopen(argv[2], "r");
 
-// A[] represents coefficients of first polynomial
-// B[] represents coefficients of second polynomial
-// m and n are sizes of A[] and B[] respectively
-int *add(int A[], int B[], int m, int n)
-{
-    int size = max(m, n);
-    int *sum = new int[size];
-
-    // Initialize the porduct polynomial
-    for (int i = 0; i<m; i++)
-        sum[i] = A[i];
-
-    // Take ever term of first polynomial
-    for (int i=0; i<n; i++)
-        sum[i] += B[i];
-
-    return sum;
-}
-
-// A utility function to print a polynomial
-void printPoly(int poly[], int n)
-{
-    for (int i=0; i<n; i++)
-    {
-        cout << poly[i];
-        if (i != 0)
-            cout << "x^" << i ;
-        if (i != n-1)
-            cout << " + ";
+    if (!fp1 || !fp2) {
+        printf("Unable to open file\n");
+        fcloseall();
+        exit(0);
     }
-}
-
-// Driver program to test above functions
-int main()
-{
-    // The following array represents polynomial 5 + 10x^2 + 6x^3
-    int A[] = {5, 0, 10, 6};
 
 
-    int B[] = {1, 2, 4};
-    int m = sizeof(A)/sizeof(A[0]);
-    int n = sizeof(B)/sizeof(B[0]);
+    while (fscanf(fp1, "%d%d", &coefficient, &exponent) != EOF) {
+        polynomial_insert(&hPtr1, coefficient, exponent);
+    }
 
-    cout << "First polynomial is \n";
-    printPoly(A, m);
-    cout << "\nSecond polynomial is \n";
-    printPoly(B, n);
 
-    int *sum = add(A, B, m, n);
-    int size = max(m, n);
+    while (fscanf(fp2, "%d%d", &coefficient, &exponent) != EOF) {
+        polynomial_insert(&hPtr2, coefficient, exponent);
+    }
+    printf("Polynomial Expression 1: ");
+    polynomial_walkList(hPtr1);
+    printf("Polynomial Expression 2: ");
+    polynomial_walkList(hPtr2);
 
-    cout << "\nsum polynomial is \n";
-    printPoly(sum, size);
+    polynomial_multiply(&hPtr3, hPtr1, hPtr2);
+
+    printf("Output:");
+    polynomial_walkList(hPtr3);
+
+    hPtr1 = polynomial_deleteList(hPtr1);
+    hPtr2 = polynomial_deleteList(hPtr2);
+    hPtr3 = polynomial_deleteList(hPtr3);
 
     return 0;
 }
