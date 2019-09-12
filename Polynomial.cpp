@@ -5,6 +5,3 @@
 #include <stdexcept>
 #include <iostream>
 #include "Polynomial.h"
-
-
-

@@ -18,7 +18,7 @@ TEST_CASE("Polynomial") {
 #ifdef LISTA
 		Polynomial p = { {1, 0}, {-1, 1}, {6, 3} };
 #else
-		Polynomial p;
+Polynomial p;
 		p.add({ 1, 0 });
 		p.add({ -1, 1 });
 		p.add({ 6, 3 });
@@ -31,10 +31,10 @@ TEST_CASE("Polynomial") {
 #ifdef LISTA
 		Polynomial p1 = { {1, 0}, {-1, 1}, {6, 3} };
 #else
-		Polynomial p1;
-		p1.add({ 1, 0 });
-		p1.add({ -1, 1 });
-		p1.add({ 6, 3 });
+Polynomial p1;
+		p.add({ 1, 0 });
+		p.add({ -1, 1 });
+		p.add({ 6, 3 });
 #endif
 		auto p2 = p1;
 		p2 = p2 + 10;

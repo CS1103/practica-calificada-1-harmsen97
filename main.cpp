@@ -1,48 +1,43 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include <stdio.h>
 #include "Polynomial.h"
-#include <iostream>
-
-
-
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
+int main()
+{
 
-int main (int argc, char *argv[]) {
-    int coefficient, exponent, i, n;
-    FILE *fp1, *fp2;
-    fp1 = fopen(argv[1], "r");
-    fp2 = fopen(argv[2], "r");
+    Polynomial *poly1 = NULL, *poly2 = NULL, *poly3 = NULL;
 
-    if (!fp1 || !fp2) {
-        printf("Unable to open file\n");
-        fcloseall();
-        exit(0);
-    }
+    //Creacion del polinomio: 3x^2 + 5x^1 + 6
+    poly1 = poly1->add(poly1, 3, 2);
+    poly1 = poly1->add(poly1, 5, 1);
+    poly1 = poly1->add(poly1, 6, 0);
 
-
-    while (fscanf(fp1, "%d%d", &coefficient, &exponent) != EOF) {
-        polynomial_insert(&hPtr1, coefficient, exponent);
-    }
+    // Creacion del segundo polinomio: 6x^1 + 8
+    poly2 = poly2->add(poly2, 6, 1);
+    poly2 = poly2->add(poly2, 8, 0);
 
 
-    while (fscanf(fp2, "%d%d", &coefficient, &exponent) != EOF) {
-        polynomial_insert(&hPtr2, coefficient, exponent);
-    }
-    printf("Polynomial Expression 1: ");
-    polynomial_walkList(hPtr1);
-    printf("Polynomial Expression 2: ");
-    polynomial_walkList(hPtr2);
+    cout << "Primer polinomio:"<<endl;
+    poly1->mostrar(poly1);
 
-    polynomial_multiply(&hPtr3, hPtr1, hPtr2);
+    cout << "Segundo Polinomio:"<<endl;
+    poly2->mostrar(poly2);
 
-    printf("Output:");
-    polynomial_walkList(hPtr3);
+    //Multiplicacion de los dos polinomios
+    poly3 = poly3->MultiplicacionConUnPolinomio(poly1, poly2, poly3);
 
-    hPtr1 = polynomial_deleteList(hPtr1);
-    hPtr2 = polynomial_deleteList(hPtr2);
-    hPtr3 = polynomial_deleteList(hPtr3);
+    cout << "Multiplicacion de los dos polinomios:";
+    poly3->mostrar(poly3);
+
+    //Multiplicacion con una constante
+    poly3=poly3->MultiplicacionConUnaConstante(poly1,10,poly3);
+    cout<<"Multiplicaion con una constante"<<endl;
+    poly3->mostrar(poly3);
+
+
+
+
 
     return 0;
-}
+} */
